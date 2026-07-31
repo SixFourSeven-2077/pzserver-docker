@@ -5,7 +5,7 @@ Dockerized Project Zomboid (Build 42) dedicated server.
 ### Main features
 - RCON `save`+`quit` on `docker stop`, never a raw signal to the game process
 - Every `server.ini` and `SandboxVars.lua` setting exposed as its own env var
-- 5 sandbox presets: Apocalypse, Outbreak, Extinction, Rising, SixTunedOutbreak
+- 6 sandbox presets: Apocalypse, Outbreak, Extinction, Rising, SixTunedOutbreak, SixTunedOutbreakLite
 - Crash auto-restart, no restart on intentional stop
 - Healthcheck, non-root process, PUID/PGID mapping
 
@@ -24,7 +24,7 @@ Ports: `16261/udp`, `16262/udp` (game). `27015/tcp` rcon, localhost only.
 Applies on first boot only. Edit the generated file directly after, or wipe the volume.
 
 ### Presets
-`PZ_SANDBOX_PRESET`: `Apocalypse` / `Outbreak` / `Extinction` / `Rising` / `SixTunedOutbreak` / `Custom`. Presets use the shipped file as-is. `Custom` uses the `PZ_SBX_*` vars, ignored otherwise.
+`PZ_SANDBOX_PRESET`: `Apocalypse` / `Outbreak` / `Extinction` / `Rising` / `SixTunedOutbreak` / `SixTunedOutbreakLite` / `Custom`. Presets use the shipped file as-is. `Custom` uses the `PZ_SBX_*` vars, ignored otherwise.
 
 #### SixTunedOutbreak
 Outbreak base, tuned for 4-6 players:
@@ -38,6 +38,11 @@ Outbreak base, tuned for 4-6 players:
 - `Helicopter`/`SirenShutoffHours`: stock, off
 
 Full file: `presets/SixTunedOutbreak.lua`
+
+#### SixTunedOutbreakLite
+Same as SixTunedOutbreak, but zombie population stays at vanilla Outbreak intensity (`PopulationMultiplier`/`PopulationStartMultiplier`/`PopulationPeakMultiplier` untouched). Loot, reading speed, cars, etc. stay tuned.
+
+Full file: `presets/SixTunedOutbreakLite.lua`
 
 ## Sizing
 B42 baseline ~6GB, +0.5GB/player, grows with playtime. 2-4 players: 8GB+. 5-6: 10-12GB. `MEMORY_XMX_GB` caps usage, the server crashes if it needs more. Leave 1-2GB for OS/docker.
