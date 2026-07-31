@@ -1,0 +1,17 @@
+---
+services:
+  pzserver:
+    build: .
+    container_name: pzserver
+    restart: unless-stopped
+    stop_grace_period: 100s
+    env_file: .env
+    ports:
+      - "${PZ_DefaultPort:-16261}:${PZ_DefaultPort:-16261}/udp"
+      - "${PZ_UDPPort:-16262}:${PZ_UDPPort:-16262}/udp"
+      - "127.0.0.1:${PZ_RCONPort:-27015}:${PZ_RCONPort:-27015}/tcp"   # rcon, only on localhost
+    volumes:
+      - pzdata:/home/pzuser/Zomboid
+
+volumes:
+  pzdata:
